@@ -1,0 +1,10 @@
+__pycache__/
+*.pyc
+training/models/diffnet/pretrained_weights
+training/result/
+*.pth
+*.pt
+*.ckpt
+*.safetensors
+logs/
+weights/

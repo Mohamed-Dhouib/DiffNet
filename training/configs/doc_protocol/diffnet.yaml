@@ -1,0 +1,25 @@
+# DiffNet, Doc Protocol: train on the DocTamper training set (512x512), 1 GPU.
+# Paths are relative to the working directory (training/); override with
+#   DATASET_NAME_OR_PATH='["<images>", "<masks>"]'  and  --result_path <dir>  (see scripts/).
+seed: 2025
+result_path: "./result"
+pretrained_model_name_or_path: null
+dataset_name_or_path: [["../data/doc_protocol/DocTamperV1-TrainingSet_extracted/images", "../data/doc_protocol/DocTamperV1-TrainingSet_extracted/masks"]]
+input_size: [512, 512]
+train_batch_size: 32        # per GPU
+max_epochs: 30
+lr: 1e-4
+warmup_steps: 5000
+num_workers: 20
+steps_per_checkpoint: 5000
+loss_pos_weight: 2.0
+class_coef: 0.1
+data_aug_config:
+  enabled: true
+  probs:
+    spatial: 0.125
+    visual: 0.08
+    flip: 0.025
+  compression:
+    max_num: 1
+    quality_range: [75, 100]
