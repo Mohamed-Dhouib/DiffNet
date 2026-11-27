@@ -1,0 +1,31 @@
+# DiffNet, Syn2Real-TDoc protocol: train on TDoc-2.8M at 768x768, 2 epochs, global batch 64
+# (8 GPUs x 8 per GPU on one node), evaluated on RTM / FindItAgain / FindIt.
+# Training starts from the Doc-Protocol DiffNet weights (required; PRETRAINED_PATH overrides the path below).
+# Paths are relative to the working directory (training/); override with
+#   DATASET_NAME_OR_PATH='["<images>", "<masks>"]'  and  --result_path <dir>  (see scripts/).
+seed: 2025
+result_path: "./result"
+pretrained_model_name_or_path: "../weights/diffnet_doc_protocol.safetensors"   # Doc-Protocol DiffNet weights (required, loaded strictly)
+dataset_name_or_path: [["../data/tdoc/TDoc-2.8M/images", "../data/tdoc/TDoc-2.8M/masks"]]
+input_size: [768, 768]
+train_batch_size: 8         # per GPU
+max_epochs: 2
+lr: 1e-4
+warmup_steps: 5000
+num_workers: 20
+steps_per_checkpoint: 5000
+loss_pos_weight: 16.0
+class_coef: 0.1
+# Of the training additions only the activation-contrast loss is kept (defaults: true / true / 5e-6).
+learned_threshold: false   # threshold offset fixed at 0, no soft-F1 term
+regularisation: false      # no stochastic depth, no decoder dropout
+min_lr: 0.0                # cosine LR decay to 0
+data_aug_config:
+  enabled: true
+  probs:
+    spatial: 0.25
+    visual: 0.16
+    flip: 0.05
+  compression:
+    max_num: 3
+    quality_range: [75, 100]

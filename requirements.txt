@@ -1,0 +1,23 @@
+# Python 3.11, CUDA 12.8. Install torch first from the CUDA wheel index:
+#   pip install torch==2.7.0 torchvision==0.22.0 --index-url https://download.pytorch.org/whl/cu128
+# mmcv 2.1.0 has no prebuilt wheel for torch 2.7: build it with its CUDA ops, e.g.
+#   pip install -U openmim && MMCV_WITH_OPS=1 pip install mmcv==2.1.0 --no-binary mmcv --no-build-isolation
+torch==2.7.0
+torchvision==0.22.0
+triton==3.3.0
+pytorch-lightning==2.6.0
+timm==0.4.12
+mmengine==0.10.7
+mmcv==2.1.0
+mmsegmentation==1.2.2
+ftfy
+regex
+numpy==2.2.6
+opencv-python==4.11.0.86
+pillow==11.2.1
+sconf==0.2.5
+safetensors
+tensorboard
+tqdm
+# tools/build_doctamper.py only
+lmdb
